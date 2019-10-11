@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="huwande_senior_week1.dao.Tb_GoodsMapper" >
+
+
+	<select id="selects" resultType="map">
+		
+	 select a.*,b.t_bname'bname',c.t_gname'gname' from tb_goods a 
+	 left join tb_brand b on a.t_bid=b.t_bid 
+	 left join tb_goodskind c on a.t_gid=c.t_gid
+	<where>
+		<if test="t_name!=null and t_name!=''">
+			a.t_name like "%"#{t_name}"%"
+		</if>
+	</where>
+	</select>
+	<select id="select2" resultType="map">		
+	 select a.*,b.t_bname'bname',c.t_gname'gname' from tb_goods a 
+	 left join tb_brand b on a.t_bid=b.t_bid 
+	 left join tb_goodskind c on a.t_gid=c.t_gid
+	 where a.t_id=#{t_id}
+	</select>
+	<select id="findBrand" resultType="Tb_Brand">
+		select * from tb_brand
+	</select>
+	<select id="findGoodKind" resultType="Tb_goodskind">
+		select * from tb_goodskind
+	</select>
+	<insert id="add">
+	insert into tb_goods set
+	t_name=#{t_name},t_english=#{t_english},t_bid=#{t_bid},t_gid=#{t_gid},t_size=#{t_size},t_price=#{t_price},t_number=#{t_number},t_shop=#{t_shop}
+	</insert>
+	<delete id="deleteAll">
+		delete from Tb_goods where t_id in (${t_id})
+	</delete>
+</mapper>
